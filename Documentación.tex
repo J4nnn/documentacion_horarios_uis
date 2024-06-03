@@ -1,15 +1,75 @@
-\documentclass{article}
+\documentclass[12pt]{article} % Tamaño de fuente 12pt
+
+\usepackage[utf8]{inputenc} % Codificación de caracteres
+\usepackage[spanish]{babel} % Idioma español
+\usepackage{graphicx} % Para incluir imágenes
+\usepackage{hyperref} % Para enlaces (opcional)
+\usepackage{comment} % Para comentarios
+\usepackage{enumitem} % Para negrita en listas
+
+\title{Documentación del Proyecto de Horarios}
+\author{Janer Alberto Vega Jácome}
+\date{\today}
 
 \begin{document}
-\begin{titlepage}
-    \centering
-    \vspace*{1cm}
-    \Huge\textbf{Título del documento}
 
-    \vspace{2cm}
-    \Large\textit{Janer Vega}
+\maketitle % Crea la portada con título, autor y fecha
 
-    \vfill
-    \small{\date{\today}}
-\end{titlepage}
+\newpage
+\section{Requerimientos}
+\subsection{Idea general}
+\noindent
+El proyecto de horarios tiene como objetivo desarrollar una aplicación web que permita a los usuarios crear, gestionar y visualizar horarios de manera eficiente. Utilizando Spring Boot para el backend y Angular para el frontend, esta aplicación ofrecerá una interfaz intuitiva y funcionalidades avanzadas para la gestión de horarios.
+\begin{comment}
+\subsection{Equipo de Desarrollo}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Nombre} & \textbf{Rol} \\ \hline
+Juan Alarcon & Desarrollador Front-End \\ \hline
+Diego Medina & Desarrollador Back-End \\ \hline
+Janer Vega & Documentación \\ \hline
+\end{tabular}
+\end{table}
+\end{comment}
+
+\subsection{Objetivos}
+
+\subsubsection{Objetivo general}
+\noindent
+Desarrollar un sistema de gestión de horarios académicos para la Escuela de Ingeniería de Sistemas e Informática de la UIS que automatice y optimice la planificación, asignación y visualización de horarios y considerando las restricciones de recursos (aulas, profesores) con el fin de mejorar la eficiencia y transparencia del proceso académico.
+\subsubsection{Objetivos específicos}
+\begin{enumerate}[font=\bfseries] % Aplica negrita a los números
+\item \textbf{Interfaz de Usuario:} Diseñar una interfaz gráfica de usuario (GUI) intuitiva y fácil de usar que permita a los usuarios (administradores, profesores y estudiantes) interactuar con el sistema de manera eficiente, proporcionando módulos específicos para la gestión de usuarios, registro académico y diseño de horarios.
+\item \textbf{Gestión de Usuarios:} Implementar un módulo de gestión de usuarios que permita el registro, autenticación, autorización y administración de perfiles de usuarios (administradores, profesores, estudiantes, técnicos, auxiliares, secretarias), asignando roles y permisos adecuados para cada tipo de usuario.
+\item Crear un sistema de registro que permita la inclusión, modificación, y eliminación de los elementos esenciales para la conformación de un horario académico, como son las asignaturas, profesores, aulas de clases, periodos académicos, y horas de clases.
+\item Diseñar y ejecutar un algoritmo para la gestión de diseño de horarios que tome en cuenta los requerimientos de asignaturas, profesores, aulas disponibles, y secciones o grupos, proporcionando indicadores de fallas o errores como choques entre bloques de horas y solapamiento de horarios.
+\item Generar reportes accesibles y detallados que permitan la visualización de horarios por profesor, aula, asignatura, y un horario general, con la capacidad de convertir y descargar estos reportes en formatos PDF y Excel.
+\end{enumerate}
+\subsection{Usuarios}
+\noindent
+El sistema de gestión de horarios está diseñado para ser utilizado por los siguientes grupos de usuarios dentro de la Escuela de Ingeniería de Sistemas de la UIS:
+\subsubsection{Estudiantes}
+\noindent
+Los estudiantes son los principales beneficiarios del sistema. Utilizarán la aplicación para consultar sus horarios de clases, incluyendo aulas, profesores y horarios de cada materia. 
+\subsubsection{Profesores}
+\noindent
+Los profesores también son usuarios clave del sistema. Utilizarán la aplicación para:
+\begin{itemize}
+    \item Consultar sus horarios de clases, incluyendo aulas y grupos asignados.
+    \item Reportar cambios o ajustes en sus horarios.
+    \item Visualizar la disponibilidad de aulas para programar actividades adicionales.
+\end{itemize}
+\subsubsection{Personal administrativo}
+\noindent
+El personal administrativo de la Escuela utilizará el sistema para:
+\begin{itemize}
+    \item Crear y gestionar los horarios académicos, asignando cursos, profesores y aulas.
+    \item Realizar cambios y ajustes en los horarios según sea necesario.
+    \item Generar reportes y estadísticas sobre la utilización de aulas y recursos.
+    \item Gestionar los permisos de acceso de los usuarios al sistema.    
+\end{itemize}
+
+
 \end{document}
