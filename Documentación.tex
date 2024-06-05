@@ -6,6 +6,7 @@
 \usepackage{hyperref} % Para enlaces (opcional)
 \usepackage{comment} % Para comentarios
 \usepackage{enumitem} % Para negrita en listas
+\usepackage[letterpaper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
 
 \title{Documentación del Proyecto de Horarios}
 \author{Janer Alberto Vega Jácome}
@@ -170,5 +171,51 @@ El sistema de gestión de horarios está diseñado para ser utilizado por los si
         \item El sistema no se integrará inicialmente con otros sistemas de la universidad.
         \item El algoritmo de diseño de horarios puede no encontrar soluciones óptimas en todos los casos, especialmente si las restricciones son muy complejas o contradictorias.
     \end{itemize}
+
+\subsection{Herramientas de desarrollo}
+\begin{enumerate}[font=\bfseries]
+    \item \textbf{IntelliJ IDEA Ultimate}
+    \begin{itemize}
+        \item \textbf{Tipo:} Entorno de desarrollo integrado (IDE)
+        \item \textbf{Justificación:} Para desarrollar el backend de la aplicación en Spring Boot, aprovechando sus herramientas de desarrollo Java y su integración con frameworks de Spring.
+    \end{itemize}
+    
+    \item \textbf{Visual Studio Code (VS Code)}
+    \begin{itemize}
+        \item \textbf{Tipo:} Editor de código fuente
+        \item \textbf{Justificación:} Para desarrollar el frontend de la aplicación en Angular, utilizando sus extensiones para Angular y TypeScript, así como sus herramientas de depuración y pruebas.
+    \end{itemize}
+    
+    \item \textbf{MySQL Workbench}
+    \begin{itemize}
+        \item \textbf{Tipo:} Herramienta de administración de bases de datos
+        \item \textbf{Justificación:} Para diseñar y administrar la base de datos MySQL donde se almacenarán los datos de horarios, asignaturas, profesores, aulas, etc.
+    \end{itemize}
+    
+    \item \textbf{GitHub}
+    \begin{itemize}
+        \item \textbf{Tipo:} Plataforma de alojamiento de código y colaboración
+        \item \textbf{Justificación:} Para alojar el código fuente del proyecto, facilitar la colaboración entre los miembros del equipo y llevar un seguimiento de los cambios en el código a lo largo del tiempo.
+    \end{itemize}
+    
+    \item \textbf{Tailscale}
+    \begin{itemize}
+        \item \textbf{Tipo:} Red privada virtual (VPN)
+        \item \textbf{Justificación:} Facilitar la colaboración entre los miembros del equipo de desarrollo, permitiéndoles compartir recursos y trabajar en el proyecto de forma remota como si estuvieran en la misma red local.
+    \end{itemize}
+    
+    \item \textbf{Swagger UI}
+    \begin{itemize}
+        \item \textbf{Tipo:} Herramienta de visualización y documentación de APIs REST
+        \item \textbf{Justificación:} Permitir a los desarrolladores probar los endpoints de la API directamente desde la interfaz de usuario, agilizando el proceso de desarrollo y depuración. \\
+        Proporcionar una documentación clara y completa de la API REST del sistema, facilitando su uso por parte del desarrollador frontend.
+    \end{itemize}
+    
+    \item \textbf{Ubuntu Server}
+    \begin{itemize}
+        \item \textbf{Tipo:} Sistema operativo de servidor basado en Linux
+        \item \textbf{Justificación:} Alojar el backend en un servidor dedicado, así el sistema está disponible las 24 horas del día, los 7 días de la semana, lo que garantiza que el desarrollador frontend podrá consumir las APIs en cualquier momento, lo que facilita su trabajo.
+    \end{itemize}
+\end{enumerate}
 
 \end{document}
