@@ -33,6 +33,7 @@ Janer Vega & Documentación \\ \hline
 \end{tabular}
 \end{table}
 \end{comment}
+
 \subsection{Objetivos}
     \subsubsection{Objetivo general}
     \noindent
@@ -62,12 +63,14 @@ Janer Vega & Documentación \\ \hline
             \item Horario General: Horario completo de la Escuela, mostrando todas las asignaturas, grupos, profesores y aulas.
         \end{itemize}
     \end{enumerate}
+    
 \subsection{Usuarios}
 \noindent
 El sistema de gestión de horarios está diseñado para ser utilizado por los siguientes grupos de usuarios dentro de la Escuela de Ingeniería de Sistemas de la UIS:
     \subsubsection{Estudiantes}
     \noindent
     Los estudiantes son los principales beneficiarios del sistema. Utilizarán la aplicación para consultar sus horarios de clases, incluyendo aulas, profesores y horarios de cada materia. 
+    
     \subsubsection{Profesores}
     \noindent
     Los profesores también son usuarios clave del sistema. Utilizarán la aplicación para:
@@ -76,6 +79,7 @@ El sistema de gestión de horarios está diseñado para ser utilizado por los si
         \item Reportar cambios o ajustes en sus horarios.
         \item Visualizar la disponibilidad de aulas para programar actividades adicionales.
     \end{itemize}
+    
     \subsubsection{Personal administrativo}
     \noindent
     El personal administrativo de la Escuela utilizará el sistema para:
@@ -86,5 +90,85 @@ El sistema de gestión de horarios está diseñado para ser utilizado por los si
         \item Gestionar los permisos de acceso de los usuarios al sistema.    
     \end{itemize}
 
+\subsection{Requisitos generales}
+    \subsubsection{Funcionalidad}
+    \noindent
+    El sistema debe permitir la creación, visualización, modificación y gestión de horarios académicos para la Escuela de Ingeniería de Sistemas e Informática de la UIS.
+    \subsubsection{Usabilidad}
+    \noindent
+    La interfaz de usuario debe ser intuitiva, fácil de usar y accesible para todos los usuarios (administradores, profesores y estudiantes).
+    \subsubsection{Rendimiento}
+    \noindent
+    El sistema debe ser capaz de generar horarios de manera eficiente, incluso para un gran número de asignaturas, profesores y estudiantes.
+    \subsubsection{Seguridad}
+    \noindent
+    El sistema debe proteger la información sensible de los usuarios y garantizar que solo los usuarios autorizados puedan acceder y modificar los datos.
+    \subsubsection{Escalabilidad}
+    \noindent
+    El sistema debe ser diseñado para adaptarse al crecimiento futuro de la Escuela, permitiendo la adición de nuevas asignaturas, profesores y estudiantes.
+    \subsubsection{Compatibilidad}
+    \noindent
+    El sistema debe ser compatible con los navegadores web modernos (Chrome, Firefox, Safari, Edge) y funcionar en diferentes dispositivos (computadoras, tabletas, teléfonos móviles).
+
+\subsection{Requisitos funcionales}
+    \subsubsection{Gestión de usuarios}
+    \begin{itemize}
+        \item El sistema debe permitir el registro de nuevos usuarios (administradores, profesores, estudiantes).
+        \item El sistema debe permitir la autenticación de usuarios mediante nombre de usuario y contraseña.
+        \item El sistema debe asignar roles y permisos a los usuarios según su tipo (administrador, profesor, estudiante).
+        \item El sistema debe permitir la modificación y eliminación de perfiles de usuario.
+    \end{itemize}
+    
+    \subsubsection{Registro académico}
+    \begin{itemize}
+        \item El sistema debe permitir el registro de asignaturas, incluyendo nombre, código, créditos, prerrequisitos y tipo.
+        \item El sistema debe permitir el registro de profesores, incluyendo nombre, identificación, disponibilidad horaria y preferencias de asignaturas.
+        \item El sistema debe permitir el registro de aulas, incluyendo nombre, capacidad, tipo y disponibilidad horaria.
+        \item El sistema debe permitir el registro de grupos, incluyendo identificación, número de estudiantes y asignaturas asociadas.
+    \end{itemize}
+    
+    \subsubsection{Diseño de horarios}
+    \begin{itemize}
+        \item El sistema debe generar automáticamente horarios académicos que cumplan con las restricciones de recursos y académicas.
+        \item El sistema debe permitir la modificación manual de los horarios generados.
+        \item El sistema debe detectar y notificar conflictos de horarios (choques entre bloques de horas, solapamiento de horarios).
+        \item El sistema debe permitir la optimización de los horarios según diferentes criterios (minimizar conflictos, maximizar la utilización de recursos, equilibrar la carga horaria de profesores).
+    \end{itemize}
+    
+    \subsubsection{Visualización de horarios}
+    \begin{itemize}
+        \item El sistema debe permitir la visualización de horarios individuales por profesor.
+        \item El sistema debe permitir la visualización de horarios de ocupación de aulas.
+        \item El sistema debe permitir la visualización de horarios por asignatura, incluyendo grupos y profesores.
+        \item El sistema debe permitir la visualización de un horario general de la Escuela.
+    \end{itemize}
+    
+    \subsubsection{Generación de reportes}
+    \begin{itemize}
+        \item El sistema debe permitir la exportación de horarios en formato PDF.
+        \item El sistema debe permitir la exportación de horarios en formato Excel.
+    \end{itemize}
+
+\subsection{Información de autoría}
+\begin{itemize}
+    \item Este proyecto es desarrollado por estudiantes de la Escuela de Ingeniería de Sistemas e Informática de la Universidad Industrial de Santander (UIS), como parte de una auxiliatura académica.
+    \item Los derechos de autor del código fuente y la documentación del proyecto pertenecen a los estudiantes desarrolladores \textit{(Por ahora jajajaja)}.
+    \item El proyecto se distribuye bajo una licencia de código abierto \textit{(debemos escoger una)}.
+\end{itemize}
+
+\subsection{Alcances y limitaciones}
+    \subsubsection{Alcances}
+    \begin{itemize}
+        \item El sistema se enfocará en la gestión de horarios académicos para la Escuela de Ingeniería de Sistemas e Informática de la UIS.
+        \item El sistema permitirá la generación automática de horarios, considerando restricciones y preferencias.
+        \item El sistema ofrecerá diferentes vistas de horarios y la posibilidad de exportarlos en varios formatos.
+    \end{itemize}
+    
+    \subsubsection{Limitaciones}
+    \begin{itemize}
+        \item El sistema no gestionará otros aspectos de la vida académica, como calificaciones, asistencia o inscripciones.
+        \item El sistema no se integrará inicialmente con otros sistemas de la universidad.
+        \item El algoritmo de diseño de horarios puede no encontrar soluciones óptimas en todos los casos, especialmente si las restricciones son muy complejas o contradictorias.
+    \end{itemize}
 
 \end{document}
