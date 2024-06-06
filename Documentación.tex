@@ -1,4 +1,4 @@
-\documentclass[12pt]{article} % Tamaño de fuente 12pt
+\documentclass{article} % Tamaño de fuente 12pt
 
 \usepackage[utf8]{inputenc} % Codificación de caracteres
 \usepackage[spanish]{babel} % Idioma español
@@ -6,11 +6,40 @@
 \usepackage{hyperref} % Para enlaces (opcional)
 \usepackage{comment} % Para comentarios
 \usepackage{enumitem} % Para negrita en listas
-\usepackage[letterpaper, left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage[letterpaper, left=1in, right=1in, top=1in, bottom=1in, headheight=1.5in]{geometry}
+\usepackage{fancyhdr} % Para incluir imágenes en el encabezado
 
+% Información básica
 \title{Documentación del Proyecto de Horarios}
 \author{Janer Alberto Vega Jácome}
 \date{\today}
+
+\begin{comment}    
+%Definiendo estilo del encabezado
+\fancypagestyle{mystyle}{
+    \fancyhf{} % Limpia el encabezado y pie de página
+    \renewcommand{\headrulewidth}{0pt} % Elimina la línea horizontal del encabezado
+    \fancyhead[L]{\includegraphics[width=2cm]{Imágenes/logoEscuela.png}}
+    \fancyhead[C]{ % Títulos del encabezado
+        \begin{minipage}{0.7\textwidth} % Ajusta el ancho del minipage para los títulos
+            \centering
+            \raisebox{0in}{
+                {\large Escuela de Ingeniería de Sistemas e Informática}
+            }
+            \raisebox{0cm}{
+                {\small Universidad Industrial de Santander}
+            }
+        \end{minipage}
+    }
+    \fancyhead[R]{\includegraphics[width=3.5cm]{Imágenes/logoUIS.png}}
+
+    \fancyfoot[C]{\thepage} % Número de página centrado
+    
+}
+
+% Aplicando el estilo del encabezado y pie de página
+\pagestyle{mystyle}
+\end{comment}
 
 \begin{document}
 
@@ -218,4 +247,9 @@ El sistema de gestión de horarios está diseñado para ser utilizado por los si
     \end{itemize}
 \end{enumerate}
 
+\subsection{Planificación}
+\noindent
+La planificación detallada del proyecto, pasos principales y estimación de tiempos, se encuentra en un documento adjunto en esta carpeta.
+
+\subsection{Obtención e instalación}
 \end{document}
