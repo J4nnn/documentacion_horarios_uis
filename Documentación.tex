@@ -1,6 +1,6 @@
 \documentclass{article} % Tamaño de fuente 12pt
 
-\usepackage[utf8]{inputenc} % Codificación de caracteres
+% \usepackage[utf8]{inputenc} % Codificación de caracteres
 \usepackage[spanish]{babel} % Idioma español
 \usepackage{graphicx} % Para incluir imágenes
 \usepackage{hyperref} % Para enlaces (opcional)
@@ -255,15 +255,83 @@ La planificación detallada del proyecto, pasos principales y estimación de tie
     \subsubsection{Prerequisitos}
     \begin{itemize}
         \item Java Development Kit (JDK) 17
-        \item Node.js y npm (o yarn) para el frontend Angular
+        \item Node.js (al menos 18.19.1)
+        \item npm (al menos 10.8.2)
+        \item Angular CLI (18.1.0)
         \item Git para clonar el repositorio
-        \item MySQL 5.7 instalado y configurado
+        \item MySQL 5.7 instalado y configurado (usuario \guillemotleft root\guillemotright~ con contraseña \guillemotleft 1234\guillemotright)
     \end{itemize}
     
-    \subsubsection{Backend}
-    \begin{enumerate}
-        \item \textbf{Obtención del código fuente}\\\\
-        Clonar el repositorio desde GitHub: git clone https://github.com/SrNe0/HorarioUIS.git
+    \subsubsection{Obtención del código fuente}
+    \begin{enumerate}[font=\bfseries]
+        \item Clonar el repositorio desde GitHub
+        \begin{verbatim}
+            git clone https://github.com/SrNe0/HorarioUIS.git
+        \end{verbatim}
+        \item Cambiar a la rama \guillemotleft develop\guillemotright
+        \begin{verbatim}
+            git checkout develop
+        \end{verbatim}
     \end{enumerate}
 
+    \subsubsection{Instalación y configuración del Backend (Spring Boot)}
+    \begin{enumerate}[font=\bfseries]
+        \item Entrar a MySQL \textit{(contraseña \guillemotleft 1234\guillemotright)}
+        \begin{verbatim}
+            mysql -u root -p
+        \end{verbatim}
+        \item Crear la base de datos
+        \begin{verbatim}
+            CREATE DATABASE horario_uis;
+        \end{verbatim}
+        \item Abrir el proyecto en IntelliJ IDEA (o el IDE de preferencia)
+        \item \textit{En proceso de cambio}
+    \end{enumerate}
+
+    \subsubsection{Intalación y configuración del Frontend (Angular)}
+    \begin{enumerate}[font=\bfseries]
+        \item Instalar Angular
+        \begin{verbatim}
+            sudo npm install
+        \end{verbatim}
+        \item Ir al directorio del Frontend
+        \begin{verbatim}
+            cd Frontend
+        \end{verbatim}
+        \item Iniciar el servidor de desarrollo
+        \begin{verbatim}
+            ng serve
+        \end{verbatim}
+        El frontend se ejecutará por defecto en \verb|http://localhost:4200|
+    \end{enumerate}
+    
+    \subsection{Arquitectura del sistema}
+    \noindent El sistema de gestión de horarios sigue una arquitectura cliente-servidor, donde el frontend y el backend están separados y se comunican a través de una API REST. Adicionalmente, se utiliza una base de datos para el almacenamiento persistente de los datos.
+    
+    \begin{enumerate}[font=\bfseries]
+        \item \textbf{Frontend (Cliente)}
+        \begin{itemize}
+            \item \textbf{Angular:} El frontend se desarrolla utilizando el framework Angular, que organiza el código en componentes, servicios y módulos.            
+            \begin{itemize}
+                \item \textbf{Componentes:} Representan las diferentes partes de la interfaz de usuario (vistas de horarios, vista de login, etc.).
+                \item \textbf{Servicios:} Encapsulan la lógica de negocio y la comunicación con el backend a través de la API REST.
+                \item \textbf{Módulos:} Agrupan componentes y servicios relacionados.
+            \end{itemize}
+        \end{itemize}
+        
+        \item \textbf{Backend (Servidor)}
+        \begin{itemize}
+            \item \textbf{Spring Boot:} El backend se construye con Spring Boot, que sigue una arquitectura de capas:
+            \begin{itemize}
+                \item \textbf{Controladores:} Reciben las solicitudes del frontend, interactúan con los servicios y devuelven las respuestas.
+                \item \textbf{Servicios:} Implementan la lógica, como la generación de horarios, la validación de datos y el acceso a la base de datos.
+                \item \textbf{Repositorios:} Se encargan de la interacción con la base de datos, utilizando JPA (Java Persistence API) para mapear las entidades del modelo de datos a tablas en la base de datos.
+            \end{itemize}
+        \end{itemize}
+        
+        \item \textbf{Base de datos} \\
+        \noindent Se utiliza una base de datos MySQL para almacenar los datos del sistema, como información de usuarios, asignaturas, profesores, disponibilidad horaria, aulas y horarios.
+        
+        \includegraphics[width=\linewidth]{Imágenes/arquitectura.png}
+    \end{enumerate}
 \end{document}
