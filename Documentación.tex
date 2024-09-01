@@ -182,8 +182,8 @@ El sistema de gestión de horarios está diseñado para ser utilizado por los si
 \subsection{Información de autoría}
 \begin{itemize}
     \item Este proyecto es desarrollado por estudiantes de la Escuela de Ingeniería de Sistemas e Informática de la Universidad Industrial de Santander (UIS), como parte de una auxiliatura académica.
-    \item Los derechos de autor del código fuente y la documentación del proyecto pertenecen a los estudiantes desarrolladores \textit{(Por ahora jajajaja)}.
-    \item El proyecto se distribuye bajo una licencia de código abierto \textit{(debemos escoger una)}.
+    \item Los derechos de autor del código fuente y la documentación del proyecto pertenecen a la Escuela de Ingeniería de Sistemas e Informática de la Universidad Industrial de Santander (UIS).
+    % \item El proyecto se distribuye bajo una licencia de código abierto \textit{(debemos escoger una)}.
 \end{itemize}
 
 \subsection{Alcances y limitaciones}
@@ -255,10 +255,11 @@ La planificación detallada del proyecto, pasos principales y estimación de tie
     \subsubsection{Prerequisitos}
     \begin{itemize}
         \item Java Development Kit (JDK) 17
+        \item Maven (al menos 3.9.6)
         \item Node.js (al menos 18.19.1)
         \item npm (al menos 10.8.2)
-        \item Angular CLI (18.1.0)
-        \item Git para clonar el repositorio
+        \item Angular (18.1.0)
+        \item Git
         \item MySQL 5.7 instalado y configurado (usuario \guillemotleft root\guillemotright~ con contraseña \guillemotleft 1234\guillemotright)
     \end{itemize}
     
@@ -284,13 +285,26 @@ La planificación detallada del proyecto, pasos principales y estimación de tie
         \begin{verbatim}
             CREATE DATABASE horario_uis;
         \end{verbatim}
-        \item Abrir el proyecto en IntelliJ IDEA (o el IDE de preferencia)
-        \item \textit{En proceso de cambio}
+        \item Ir al directorio del Backend
+        \begin{verbatim}
+            cd HorarioUIS/Backend
+        \end{verbatim}
+        \item Compilar el proyecto con Maven
+        \begin{verbatim}
+            mvn clean install
+        \end{verbatim}
+        Esto creará un archivo .jar en la carpeta target.
+        \item Ejecutar el archivo .jar
+        \begin{verbatim}
+            java -jar nombre_del_archivo.jar
+        \end{verbatim}
+        El backend se ejecutará por defecto en \verb|http://localhost:8080|
     \end{enumerate}
 
     \subsubsection{Intalación y configuración del Frontend (Angular)}
+    \noindent En el directorio del proyecto:
     \begin{enumerate}[font=\bfseries]
-        \item Instalar Angular
+        \item Instalar Angular y demás dependencias
         \begin{verbatim}
             sudo npm install
         \end{verbatim}
@@ -306,32 +320,68 @@ La planificación detallada del proyecto, pasos principales y estimación de tie
     \end{enumerate}
     
     \subsection{Arquitectura del sistema}
+    \subsubsection{Decripción}
     \noindent El sistema de gestión de horarios sigue una arquitectura cliente-servidor, donde el frontend y el backend están separados y se comunican a través de una API REST. Adicionalmente, se utiliza una base de datos para el almacenamiento persistente de los datos.
     
     \begin{enumerate}[font=\bfseries]
-        \item \textbf{Frontend (Cliente)}
-        \begin{itemize}
             \item \textbf{Angular:} El frontend se desarrolla utilizando el framework Angular, que organiza el código en componentes, servicios y módulos.            
             \begin{itemize}
                 \item \textbf{Componentes:} Representan las diferentes partes de la interfaz de usuario (vistas de horarios, vista de login, etc.).
-                \item \textbf{Servicios:} Encapsulan la lógica de negocio y la comunicación con el backend a través de la API REST.
+                \item \textbf{Servicios:} Módulos que manejan la lógica de negocio en el frontend y se comunican con el backend a través de HTTP.
                 \item \textbf{Módulos:} Agrupan componentes y servicios relacionados.
             \end{itemize}
-        \end{itemize}
         
-        \item \textbf{Backend (Servidor)}
-        \begin{itemize}
             \item \textbf{Spring Boot:} El backend se construye con Spring Boot, que sigue una arquitectura de capas:
             \begin{itemize}
                 \item \textbf{Controladores:} Reciben las solicitudes del frontend, interactúan con los servicios y devuelven las respuestas.
                 \item \textbf{Servicios:} Implementan la lógica, como la generación de horarios, la validación de datos y el acceso a la base de datos.
                 \item \textbf{Repositorios:} Se encargan de la interacción con la base de datos, utilizando JPA (Java Persistence API) para mapear las entidades del modelo de datos a tablas en la base de datos.
+                \item \textbf{Entidades:} Clases que representan las tablas en la base de datos y son utilizadas para mapear los datos entre la aplicación y la base de datos.
             \end{itemize}
-        \end{itemize}
         
         \item \textbf{Base de datos} \\
         \noindent Se utiliza una base de datos MySQL para almacenar los datos del sistema, como información de usuarios, asignaturas, profesores, disponibilidad horaria, aulas y horarios.
         
-        \includegraphics[width=\linewidth]{Imágenes/arquitectura.png}
+        \item \textbf{Integración y comunicación entre las capas}
+        \begin{itemize}
+            \item \textbf{API RESTful:} El backend de Spring Boot expone una serie de endpoints RESTful que el frontend en Angular consume. Esta comunicación se realiza a través de HTTP, donde el frontend envía solicitudes y recibe respuestas en formato JSON.
+            \item \textbf{Seguridad:} La autenticación y autorización se manejan en la capa de negocio, asegurando que solo usuarios autenticados puedan acceder a ciertos recursos, utilizando JWT (JSON Web Tokens).
+        \end{itemize}
     \end{enumerate}
+    
+    \subsubsection{Módulos principales}
+    \begin{itemize}
+        \item \textbf{Frontend:} 
+        \begin{itemize}
+            \item \textbf{Módulo de interfaz de usuario (UI)}
+                \begin{itemize}
+                    \item \textbf{Descripción:} Este módulo maneja la interfaz de usuario de la aplicación. Su propósito es permitir que los usuarios interactúen con el sistema de manera amigable y eficiente.
+                    \item \textbf{Responsabilidad:} Mostrar datos y capturar las entradas del usuario.
+                    \item \textbf{Restricciones:} No tiene acceso directo a la lógica de negocio o a la base de datos; solo interactúa con los datos que le son provistos a través del módulo de comunicación.
+                    \item \textbf{Dependencias:} Depende del \textbf{Módulo de comunicación HTTP} para obtener y enviar datos al backend.
+                    \item \textbf{Implementación:} Este módulo se implementa en archivos .html, .ts y .css dentro de la carpeta src/app, dividido en varios componentes.
+                \end{itemize}
+            \item \textbf{Módulo de comunicación HTTP}
+                \begin{itemize}
+                    \item \textbf{Descripción:} Este módulo maneja todas las solicitudes HTTP que el frontend envía al backend. Su objetivo es interactuar con el backend para obtener y enviar datos.
+                    \item \textbf{Responsabilidad:} Enviar solicitudes HTTP y procesar las respuestas.
+                    \item \textbf{Restricciones:} No debe contener lógica de presentación ni lógica de negocio, solo debe encargarse de la comunicación.
+                    \item \textbf{Dependencias:} Depende del \textbf{Módulo UI} para recibir solicitudes de datos y enviar respuestas, y de los servicios REST expuestos por el backend en Spring Boot.
+                    \item \textbf{Implementación:} Este módulo se implementa en archivos .ts dentro de la carpeta src/app/services.
+                \end{itemize}
+        \end{itemize}
+        \item \textbf{Backend:} 
+        \begin{itemize}
+            \item Módulo de controladores
+            \item Módulo de servicios
+            \item Módulo de repositorios
+            \item Módulo de seguridad
+        \end{itemize}
+        \item \textbf{Base de datos:}
+        \begin{itemize}
+            \item Módulo de gestión de datos
+        \end{itemize}
+    \end{itemize}
+    \subsubsection{Relación entre módulos}
+    \includegraphics[width=\linewidth]{Imágenes/arquitectura simplificada.png}
 \end{document}
