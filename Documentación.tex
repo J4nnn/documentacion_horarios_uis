@@ -448,7 +448,62 @@ La planificación detallada del proyecto, pasos principales y estimación de tie
         \end{enumerate}
         \item \textbf{Protección de componentes y datos sensibles}
         \begin{enumerate}
-            \item \textbf{Componentes protegidos:} El uso de los componentes críticos como \texttt{ModifyComponent} y \texttt{NewComponent} están protegidos mediante el uso de guards, asegurando que solo los usuarios autorizados puedan realizar modificaciones o crear nuevos registros.
+            \item \textbf{Componentes protegidos:} El uso de los componentes críticos como \texttt{ModifyComponent} y \\\texttt{NewComponent} están protegidos mediante el uso de guards, asegurando que solo los usuarios autorizados puedan realizar modificaciones o crear nuevos registros.
+            \item \textbf{Manejo Seguro de Datos:} Los datos sensibles, como contraseñas y tokens, son manejados con precaución en toda la aplicación. Las contraseñas nunca se almacenan en texto plano, y los tokens se mantienen en \texttt{localStorage} solo durante la duración de la sesión del usuario.
         \end{enumerate}
+        \item \textbf{Respuesta y manejo de errores}\\
+        En caso de que una solicitud no sea autenticada correctamente:
+        \begin{enumerate}
+            \item \textbf{Manejo de errores:} El interceptor también maneja los errores que pueden ocurrir durante la comunicación con el backend. Si ocurre un error de autenticación, se muestra un mensaje de error.
+        \end{enumerate}
+    \end{enumerate}
+    
+    \subsubsection{Seguridad en el Backend}
+    \noindent El sistema de seguridad está diseñado con Spring Security. La seguridad se implementa mediante el uso de \texttt{JWT} (JSON Web Tokens) para la autenticación y configuración de acceso basada en roles.
+    
+    \begin{enumerate}
+        \item \textbf{Configuración de seguridad}
+        \noindent En la clase \texttt{SecurityConfigurer.java} se definen las reglas para la autenticación y autorización:
+        \begin{itemize}
+            \item \textbf{Autenticación y autorización:}
+            \begin{itemize}
+                \item Se permite el acceso público a ciertas rutas, como la de autenticación \\\texttt{(/api/security/authenticate)}.
+                \item Se restringe el acceso a otras rutas según los roles de usuario \texttt{(USER, ADMIN)}. Solo los usuarios con rol \texttt{ADMIN} pueden realizar operaciones \texttt{POST, PUT, y DELETE}.
+                \item Se habilita la autenticación básica \texttt{HTTP}, lo cual es útil para acceder a la documentación Swagger.
+            \end{itemize}
+            \item \textbf{Gestión de sesiones:}
+            \begin{itemize}
+                \item El sistema utiliza una política de sesión sin estado \texttt{(STATELESS)}, lo que significa que no se mantiene una sesión en el servidor.
+            \end{itemize}
+            \item \textbf{Cross-Origin Resource Sharing \texttt{(CORS)}}
+            \begin{itemize}
+                \item Se configuran las reglas de \texttt{CORS} para permitir que el frontend interactúe con el backend desde orígenes específicos.
+            \end{itemize}
+        \end{itemize}
+        
+        \item \textbf{JSON Web Tokens \texttt{(JWT)}}
+        \noindent Se utiliza JWT para manejar la autenticación de los usuarios:
+        \begin{itemize}
+            \item \textbf{Generación y Validación de Tokens:}
+            \begin{itemize}
+                \item La clase \texttt{JwtUtil.java} se encarga de generar los tokens \texttt{JWT} cuando un usuario se autentica exitosamente. También valida los tokens y extrae información relevante como el nombre de usuario, la fecha de expiración. Puede extraer un reclamo en específico o todos los reclamos del token \texttt{JWT}.
+            \end{itemize}
+            \item \textbf{Filtro de solicitudes:}
+            \begin{itemize}
+                \item El filtro \texttt{JwtRequestFilter}.java intercepta cada solicitud \texttt{HTTP} para verificar si contiene un token \texttt{JWT} válido en el encabezado de autorización. Si el token es válido, se establece la autenticación en el contexto de seguridad.
+            \end{itemize}
+        \end{itemize}
+        
+        \item \textbf{Detalles del usuario y servicios}
+        \begin{itemize}
+            \item \textbf{CustomUserDetails.java:}
+            \begin{itemize}
+                \item Esta clase implementa la interfaz \texttt{UserDetails} de Spring Security y proporciona los detalles de autenticación y autorización del usuario, como el nombre de usuario y la contraseña.
+            \end{itemize}
+            \item \textbf{CustomUserDetailsService.java:}
+            \begin{itemize}
+                \item Este servicio se encarga de cargar los detalles del usuario desde la base de datos utilizando el repositorio \texttt{UsuarioRepository}. Si el usuario es encontrado, se retornan sus detalles encapsulados en un objeto \texttt{CustomUserDetails}.
+            \end{itemize}
+        \end{itemize}
     \end{enumerate}
 \end{document}
