@@ -358,28 +358,68 @@ La planificación detallada del proyecto, pasos principales y estimación de tie
                     \item \textbf{Descripción:} Este módulo maneja la interfaz de usuario de la aplicación. Su propósito es permitir que los usuarios interactúen con el sistema de manera amigable y eficiente.
                     \item \textbf{Responsabilidad:} Mostrar datos y capturar las entradas del usuario.
                     \item \textbf{Restricciones:} No tiene acceso directo a la lógica de negocio o a la base de datos; solo interactúa con los datos que le son provistos a través del módulo de comunicación.
-                    \item \textbf{Dependencias:} Depende del \textbf{Módulo de comunicación HTTP} para obtener y enviar datos al backend.
-                    \item \textbf{Implementación:} Este módulo se implementa en archivos .html, .ts y .css dentro de la carpeta src/app, dividido en varios componentes.
+                    \item \textbf{Dependencias:} Depende del \textbf{\emph{Módulo de comunicación HTTP}} para obtener y enviar datos al backend.
+                    \item \textbf{Implementación:} Este módulo se implementa en archivos \texttt{.html}, \texttt{.ts} y \texttt{.css} dentro de la carpeta \texttt{src/app}, dividido en varios componentes.
                 \end{itemize}
             \item \textbf{Módulo de comunicación HTTP}
                 \begin{itemize}
                     \item \textbf{Descripción:} Este módulo maneja todas las solicitudes HTTP que el frontend envía al backend. Su objetivo es interactuar con el backend para obtener y enviar datos.
                     \item \textbf{Responsabilidad:} Enviar solicitudes HTTP y procesar las respuestas.
                     \item \textbf{Restricciones:} No debe contener lógica de presentación ni lógica de negocio, solo debe encargarse de la comunicación.
-                    \item \textbf{Dependencias:} Depende del \textbf{Módulo UI} para recibir solicitudes de datos y enviar respuestas, y de los servicios REST expuestos por el backend en Spring Boot.
-                    \item \textbf{Implementación:} Este módulo se implementa en archivos .ts dentro de la carpeta src/app/services.
+                    \item \textbf{Dependencias:} Depende del \textbf{\emph{Módulo UI}} para recibir solicitudes de datos y enviar respuestas, y de los servicios REST expuestos por el backend en Spring Boot.
+                    \item \textbf{Implementación:} Este módulo se implementa en archivos \texttt{.ts} dentro de la carpeta \texttt{src/app/services}.
                 \end{itemize}
         \end{itemize}
+        
         \item \textbf{Backend:} 
         \begin{itemize}
-            \item Módulo de controladores
-            \item Módulo de servicios
-            \item Módulo de repositorios
-            \item Módulo de seguridad
+            \item \textbf{Módulo de controladores}
+            \begin{itemize}
+                \item \textbf{Descripción:} Este módulo actúa como intermediario entre el frontend y la lógica de negocio. Maneja las solicitudes HTTP entrantes y devuelve las respuestas adecuadas.
+                \item \textbf{Responsabilidad:} Recibir solicitudes HTTP, delegarlas a los servicios adecuados, y retornar respuestas.
+                \item \textbf{Restricciones:} No debe contener lógica de negocio; solo delega tareas a los servicios.
+                \item \textbf{Dependencias:} Depende del \textbf{\emph{Módulo de servicios}} para realizar la lógica de negocio y del \textbf{\textit{Módulo de comunicación HTTP}} para recibir solicitudes desdel el frontend.
+                \item \textbf{Implementación:} Este módulo se implementa en clases Java con anotaciones \texttt{@RestController}, ubicadas en el paquete \texttt{uis.horariouis.controller}.
+            \end{itemize}
+            
+            \item \textbf{Módulo de servicios}
+            \begin{itemize}
+                \item \textbf{Descripción:} Este módulo contiene la lógica de negocio de la aplicación. Es responsable de procesar los datos y aplicar las reglas de negocio antes de enviarlos a los controladores o repositorios.
+                \item \textbf{Responsabilidad:} Implementar la lógica de negocio y realizar transformaciones en los datos.
+                \item \textbf{Restricciones:} No debe interactuar directamente con la interfaz de usuario ni con la base de datos; estas interacciones deben pasar por los controladores y repositorios, respectivamente.
+                \item \textbf{Dependencias:} Depende del \textbf{\emph{Módulo de repositorios}} para acceder a la base de datos.
+                \item \textbf{Implementación:} Este módulo se implementa en clases Java dentro del paquete \texttt{uis.horariouis.service}.
+            \end{itemize}
+            
+            \item \textbf{Módulo de repositorios}
+            \begin{itemize}
+                \item \textbf{Descripción:} Este módulo maneja la persistencia de los datos en la base de datos. Proporciona abstracciones para realizar operaciones CRUD sobre la base de datos.
+                \item \textbf{Responsabilidad:} Interactuar con la base de datos a través de JPA para realizar operaciones CRUD.
+                \item \textbf{Restricciones:} No debe contener lógica de negocio, solo acceso a datos.
+                \item \textbf{Dependencias:} Depende del \textbf{\emph{Módulo de gestión de datos}} en MySQL para almacenar y recuperar datos.
+                \item \textbf{Implementación:} Este módulo se implementa en interfaces de Java que extienden \texttt{JpaRepository}, ubicadas en el paquete \texttt{uis.horariouis.repository}.
+            \end{itemize}
+            
+            \item \textbf{Módulo de seguridad}
+            \begin{itemize}
+                \item \textbf{Descripción:} Este módulo se encarga de la autenticación y autorización de usuarios dentro de la aplicación.
+                \item \textbf{Responsabilidad:} Proteger los recursos de la aplicación mediante autenticación y autorización.
+                \item \textbf{Restricciones:} No debe gestionar la lógica de negocio, solo asegurar que las solicitudes sean realizadas por usuarios autenticados y autorizados.
+                \item \textbf{Dependencias:} Depende de \texttt{JWT} para la autenticación.
+                \item \textbf{Implementación:} Este módulo se implementa en clases Java con configuraciones de seguridad, ubicadas en el paquete \texttt{uis.horariouis.security}.
+            \end{itemize}
         \end{itemize}
+        
         \item \textbf{Base de datos:}
         \begin{itemize}
-            \item Módulo de gestión de datos
+            \item \textbf{Módulo de gestión de datos}
+            \begin{itemize}
+                \item \textbf{Descripción:} Este módulo es responsable de gestionar el almacenamiento y recuperación de datos en la base de datos MySQL.
+                \item \textbf{Responsabilidad:} Almacenar, recuperar y manipular datos según las operaciones realizadas por el backend.
+                \item \textbf{Restricciones:} Solo maneja datos estructurados según el esquema de la base de datos.
+                \item \textbf{Dependencias:} Depende de las configuraciones de la base de datos y de la conexión establecida por el \textbf{\emph{Módulo de repositorios}}.
+                \item \textbf{Implementación:} Este módulo se implementa en la estructura de la base de datos, incluyendo tablas, índices, y procedimientos almacenados.
+            \end{itemize}
         \end{itemize}
     \end{itemize}
     \subsubsection{Relación entre módulos}
