@@ -6,40 +6,48 @@
 \usepackage{hyperref} % Para enlaces (opcional)
 \usepackage{comment} % Para comentarios
 \usepackage{enumitem} % Para negrita en listas
-\usepackage[letterpaper, left=1in, right=1in, top=1in, bottom=1in, headheight=1.5in]{geometry}
+\usepackage[letterpaper, left=1in, right=1in, top=1.4in, bottom=1in, headheight=2in]{geometry}
 \usepackage{fancyhdr} % Para incluir imágenes en el encabezado
+\usepackage{adjustbox}
+\usepackage{lscape}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{ltablex}
 
 % Información básica
 \title{Documentación del Proyecto de Horarios}
 \author{Janer Alberto Vega Jácome}
 \date{\today}
 
-\begin{comment}    
-%Definiendo estilo del encabezado
-\fancypagestyle{mystyle}{
-    \fancyhf{} % Limpia el encabezado y pie de página
-    \renewcommand{\headrulewidth}{0pt} % Elimina la línea horizontal del encabezado
-    \fancyhead[L]{\includegraphics[width=2cm]{Imágenes/logoEscuela.png}}
-    \fancyhead[C]{ % Títulos del encabezado
-        \begin{minipage}{0.7\textwidth} % Ajusta el ancho del minipage para los títulos
-            \centering
-            \raisebox{0in}{
-                {\large Escuela de Ingeniería de Sistemas e Informática}
-            }
-            \raisebox{0cm}{
-                {\small Universidad Industrial de Santander}
-            }
-        \end{minipage}
-    }
-    \fancyhead[R]{\includegraphics[width=3.5cm]{Imágenes/logoUIS.png}}
-
-    \fancyfoot[C]{\thepage} % Número de página centrado
-    
+\fancyhf{} % Limpia los encabezados y pies de página
+\renewcommand{\headrulewidth}{0pt} % Elimina la línea horizontal del encabezado
+\fancyhead[L]{
+%    \vspace{-.5cm}
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[height=1.5cm]{Imágenes/logoEscuela.png}
+    \end{minipage}
+}
+\fancyhead[C]{
+%    \vspace{-.5cm}
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \textbf{\Large Escuela de Ingeniería de Sistemas e Informática} \\
+        \textit{Universidad Industrial de Santander}
+    \end{minipage}
+}
+\fancyhead[R]{
+%    \vspace{-.5cm}
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[height=1.5cm]{Imágenes/logoUIS.png}
+    \end{minipage}
 }
 
-% Aplicando el estilo del encabezado y pie de página
-\pagestyle{mystyle}
-\end{comment}
+\fancyfoot[C]{\thepage} % Número de página centrado
+
+\pagestyle{fancy}
 
 \begin{document}
 
@@ -319,191 +327,11 @@ La planificación detallada del proyecto, pasos principales y estimación de tie
         El frontend se ejecutará por defecto en \verb|http://localhost:4200|
     \end{enumerate}
     
-    \section{Arquitectura del sistema}
-    \subsection{Decripción}
-    \noindent El sistema de gestión de horarios sigue una arquitectura cliente-servidor, donde el frontend y el backend están separados y se comunican a través de una API REST. Adicionalmente, se utiliza una base de datos para el almacenamiento persistente de los datos.
+% Tabla de requerimientos
+\begin{longtable}{|p{1.1cm}|p{2.2cm}|p{1.65cm}|p{1.65cm}|p{3.3cm}|p{3.3cm}|}
+    \hline
+    1 & 2 & 3 & 4 & 5 & 6\\
+    \hline
+\end{longtable}
     
-    \begin{enumerate}[font=\bfseries]
-            \item \textbf{Angular:} El frontend se desarrolla utilizando el framework Angular, que organiza el código en componentes, servicios y módulos.            
-            \begin{itemize}
-                \item \textbf{Componentes:} Representan las diferentes partes de la interfaz de usuario (vistas de horarios, vista de login, etc.).
-                \item \textbf{Servicios:} Módulos que manejan la lógica de negocio en el frontend y se comunican con el backend a través de HTTP.
-                \item \textbf{Módulos:} Agrupan componentes y servicios relacionados.
-            \end{itemize}
-        
-            \item \textbf{Spring Boot:} El backend se construye con Spring Boot, que sigue una arquitectura de capas:
-            \begin{itemize}
-                \item \textbf{Controladores:} Reciben las solicitudes del frontend, interactúan con los servicios y devuelven las respuestas.
-                \item \textbf{Servicios:} Implementan la lógica, como la generación de horarios, la validación de datos y el acceso a la base de datos.
-                \item \textbf{Repositorios:} Se encargan de la interacción con la base de datos, utilizando JPA (Java Persistence API) para mapear las entidades del modelo de datos a tablas en la base de datos.
-                \item \textbf{Entidades:} Clases que representan las tablas en la base de datos y son utilizadas para mapear los datos entre la aplicación y la base de datos.
-            \end{itemize}
-        
-        \item \textbf{Base de datos} \\
-        \noindent Se utiliza una base de datos MySQL para almacenar los datos del sistema, como información de usuarios, asignaturas, profesores, disponibilidad horaria, aulas y horarios.
-        
-        \item \textbf{Integración y comunicación entre las capas}
-        \begin{itemize}
-            \item \textbf{API RESTful:} El backend de Spring Boot expone una serie de endpoints RESTful que el frontend en Angular consume. Esta comunicación se realiza a través de HTTP, donde el frontend envía solicitudes y recibe respuestas en formato JSON.
-            \item \textbf{Seguridad:} La autenticación y autorización se manejan en la capa de negocio, asegurando que solo usuarios autenticados puedan acceder a ciertos recursos, utilizando \texttt{JWT} (JSON Web Tokens).
-        \end{itemize}
-    \end{enumerate}
-    
-    \subsection{Módulos principales}
-    \begin{itemize}
-        \item \textbf{Frontend:} 
-        \begin{itemize}
-            \item \textbf{Módulo de interfaz de usuario (UI)}
-                \begin{itemize}
-                    \item \textbf{Descripción:} Este módulo maneja la interfaz de usuario de la aplicación. Su propósito es permitir que los usuarios interactúen con el sistema de manera amigable y eficiente.
-                    \item \textbf{Responsabilidad:} Mostrar datos y capturar las entradas del usuario.
-                    \item \textbf{Restricciones:} No tiene acceso directo a la lógica de negocio o a la base de datos; solo interactúa con los datos que le son provistos a través del módulo de comunicación.
-                    \item \textbf{Dependencias:} Depende del \textbf{\emph{Módulo de comunicación HTTP}} para obtener y enviar datos al backend.
-                    \item \textbf{Implementación:} Este módulo se implementa en archivos \texttt{.html}, \texttt{.ts} y \texttt{.css} dentro de la carpeta \texttt{src/app}, dividido en varios componentes.
-                \end{itemize}
-            \item \textbf{Módulo de comunicación HTTP}
-                \begin{itemize}
-                    \item \textbf{Descripción:} Este módulo maneja todas las solicitudes HTTP que el frontend envía al backend. Su objetivo es interactuar con el backend para obtener y enviar datos.
-                    \item \textbf{Responsabilidad:} Enviar solicitudes HTTP y procesar las respuestas.
-                    \item \textbf{Restricciones:} No debe contener lógica de presentación ni lógica de negocio, solo debe encargarse de la comunicación.
-                    \item \textbf{Dependencias:} Depende del \textbf{\emph{Módulo UI}} para recibir solicitudes de datos y enviar respuestas, y de los servicios REST expuestos por el backend en Spring Boot.
-                    \item \textbf{Implementación:} Este módulo se implementa en archivos \texttt{.ts} dentro de la carpeta \\\texttt{src/app/services}.
-                \end{itemize}
-        \end{itemize}
-        
-        \item \textbf{Backend:} 
-        \begin{itemize}
-            \item \textbf{Módulo de controladores}
-            \begin{itemize}
-                \item \textbf{Descripción:} Este módulo actúa como intermediario entre el frontend y la lógica de negocio. Maneja las solicitudes HTTP entrantes y devuelve las respuestas adecuadas.
-                \item \textbf{Responsabilidad:} Recibir solicitudes HTTP, delegarlas a los servicios adecuados, y retornar respuestas.
-                \item \textbf{Restricciones:} No debe contener lógica de negocio; solo delega tareas a los servicios.
-                \item \textbf{Dependencias:} Depende del \textbf{\emph{Módulo de servicios}} para realizar la lógica de negocio y del \textbf{\textit{Módulo de comunicación HTTP}} para recibir solicitudes desdel el frontend.
-                \item \textbf{Implementación:} Este módulo se implementa en clases Java con anotaciones \\\texttt{@RestController}, ubicadas en el paquete \texttt{uis.horariouis.controller}.
-            \end{itemize}
-            
-            \item \textbf{Módulo de servicios}
-            \begin{itemize}
-                \item \textbf{Descripción:} Este módulo contiene la lógica de negocio de la aplicación. Es responsable de procesar los datos y aplicar las reglas de negocio antes de enviarlos a los controladores o repositorios.
-                \item \textbf{Responsabilidad:} Implementar la lógica de negocio y realizar transformaciones en los datos.
-                \item \textbf{Restricciones:} No debe interactuar directamente con la interfaz de usuario ni con la base de datos; estas interacciones deben pasar por los controladores y repositorios, respectivamente.
-                \item \textbf{Dependencias:} Depende del \textbf{\emph{Módulo de repositorios}} para acceder a la base de datos.
-                \item \textbf{Implementación:} Este módulo se implementa en clases Java dentro del paquete \\\texttt{uis.horariouis.service}.
-            \end{itemize}
-            
-            \item \textbf{Módulo de repositorios}
-            \begin{itemize}
-                \item \textbf{Descripción:} Este módulo maneja la persistencia de los datos en la base de datos. Proporciona abstracciones para realizar operaciones CRUD sobre la base de datos.
-                \item \textbf{Responsabilidad:} Interactuar con la base de datos a través de JPA para realizar operaciones CRUD.
-                \item \textbf{Restricciones:} No debe contener lógica de negocio, solo acceso a datos.
-                \item \textbf{Dependencias:} Depende del \textbf{\emph{Módulo de gestión de datos}} en MySQL para almacenar y recuperar datos.
-                \item \textbf{Implementación:} Este módulo se implementa en interfaces de Java que extienden \\\texttt{JpaRepository}, ubicadas en el paquete \texttt{uis.horariouis.repository}.
-            \end{itemize}
-            
-            \item \textbf{Módulo de seguridad}
-            \begin{itemize}
-                \item \textbf{Descripción:} Este módulo se encarga de la autenticación y autorización de usuarios dentro de la aplicación.
-                \item \textbf{Responsabilidad:} Proteger los recursos de la aplicación mediante autenticación y autorización.
-                \item \textbf{Restricciones:} No debe gestionar la lógica de negocio, solo asegurar que las solicitudes sean realizadas por usuarios autenticados y autorizados.
-                \item \textbf{Dependencias:} Depende de \texttt{\texttt{JWT}} para la autenticación.
-                \item \textbf{Implementación:} Este módulo se implementa en clases Java con configuraciones de seguridad, ubicadas en el paquete \texttt{uis.horariouis.security}.
-            \end{itemize}
-        \end{itemize}
-        
-        \item \textbf{Base de datos:}
-        \begin{itemize}
-            \item \textbf{Módulo de gestión de datos}
-            \begin{itemize}
-                \item \textbf{Descripción:} Este módulo es responsable de gestionar el almacenamiento y recuperación de datos en la base de datos MySQL.
-                \item \textbf{Responsabilidad:} Almacenar, recuperar y manipular datos según las operaciones realizadas por el backend.
-                \item \textbf{Restricciones:} Solo maneja datos estructurados según el esquema de la base de datos.
-                \item \textbf{Dependencias:} Depende de las configuraciones de la base de datos y de la conexión establecida por el \textbf{\emph{Módulo de repositorios}}.
-                \item \textbf{Implementación:} Este módulo se implementa en la estructura de la base de datos, incluyendo tablas, índices, y procedimientos almacenados.
-            \end{itemize}
-        \end{itemize}
-    \end{itemize}
-%    \subsection{Relación entre módulos}
-%    \includegraphics[width=\linewidth]{Imágenes/arquitectura simplificada.png}
-    
-    \subsection{Implementación}
-    \subsubsection{Seguridad en el Frontend}
-    \noindent La seguridad en el proyecto se implementa a través de varios mecanismos clave que trabajan juntos para proteger la aplicación y asegurar que solo los usuarios autenticados y autorizados puedan acceder a los recursos sensibles. A continuación, se detalla cómo se han implementado estos mecanismos:
-    \begin{enumerate}
-        \item \textbf{Autenticación con \texttt{JWT} (JSON Web Tokens)}
-        \begin{enumerate}
-            \item \textbf{Generación del token:} Cuando un usuario inicia sesión, el backend autentica sus credenciales y genera un token \texttt{JWT}. Este token contiene la información del usuario y su tiempo de expiración, y es firmado digitalmente para evitar manipulaciones.
-            \item \textbf{Almacenamiento:} El token \texttt{JWT} generado es enviado al frontend y almacenado en el \\\texttt{localStorage} del navegador bajo la clave \texttt{token\_user}. Este token se utiliza para autenticar todas las solicitudes subsiguientes del usuario.
-        \end{enumerate}
-        \item \textbf{Interceptores para la seguridad de las solicitudes} \\
-        \noindent El interceptor \texttt{authApiInterceptor} agrega automáticamente el token \texttt{JWT} a cada solicitud HTTP que se envía al backend:
-        \begin{enumerate}
-            \item \textbf{Intercepción de Solicitudes:} El interceptor intercepta cada solicitud \texttt{HTTP} y, si el token \texttt{JWT} está presente en \texttt{localStorage}, lo agrega en el encabezado \texttt{Authorization} de la solicitud.
-            \item \textbf{Validación por el Backend:} El backend valida el token en cada solicitud para asegurar que sea válido y que el usuario esté autorizado para acceder al recurso solicitado. Si el token es inválido o ha expirado, el backend rechaza la solicitud con un error de autenticación.
-        \end{enumerate}
-        \item \textbf{Protección de rutas con Guards} \\
-        \noindent Para proteger las rutas dentro de la aplicación y asegurar que solo los usuarios autenticados puedan acceder a ciertas secciones, se utiliza un guard:
-        \begin{enumerate}
-            \item \textbf{Guard de Autenticación (\texttt{loginGuard}):} Este guard verifica si el usuario tiene un token \texttt{JWT} válido almacenado en el \texttt{localStorage}. Si el token existe, se permite el acceso a la ruta. Si no, el usuario es redirigido a la página de login. \\
-        Este guard está implementado en la configuración de rutas (en el archivo \texttt{app.routes.ts}) de la aplicación, asegurando que todas las rutas críticas estén protegidas.
-        \end{enumerate}
-        \item \textbf{Protección de componentes y datos sensibles}
-        \begin{enumerate}
-            \item \textbf{Componentes protegidos:} El uso de los componentes críticos como \texttt{ModifyComponent} y \\\texttt{NewComponent} están protegidos mediante el uso de guards, asegurando que solo los usuarios autorizados puedan realizar modificaciones o crear nuevos registros.
-            \item \textbf{Manejo Seguro de Datos:} Los datos sensibles, como contraseñas y tokens, son manejados con precaución en toda la aplicación. Las contraseñas nunca se almacenan en texto plano, y los tokens se mantienen en \texttt{localStorage} solo durante la duración de la sesión del usuario.
-        \end{enumerate}
-        \item \textbf{Respuesta y manejo de errores}\\
-        En caso de que una solicitud no sea autenticada correctamente:
-        \begin{enumerate}
-            \item \textbf{Manejo de errores:} El interceptor también maneja los errores que pueden ocurrir durante la comunicación con el backend. Si ocurre un error de autenticación, se muestra un mensaje de error.
-        \end{enumerate}
-    \end{enumerate}
-    
-    \subsubsection{Seguridad en el Backend}
-    \noindent El sistema de seguridad está diseñado con Spring Security. La seguridad se implementa mediante el uso de \texttt{JWT} (JSON Web Tokens) para la autenticación y configuración de acceso basada en roles.
-    
-    \begin{enumerate}
-        \item \textbf{Configuración de seguridad}
-        \noindent En la clase \texttt{SecurityConfigurer.java} se definen las reglas para la autenticación y autorización:
-        \begin{itemize}
-            \item \textbf{Autenticación y autorización:}
-            \begin{itemize}
-                \item Se permite el acceso público a ciertas rutas, como la de autenticación \\\texttt{(/api/security/authenticate)}.
-                \item Se restringe el acceso a otras rutas según los roles de usuario \texttt{(USER, ADMIN)}. Solo los usuarios con rol \texttt{ADMIN} pueden realizar operaciones \texttt{POST, PUT, y DELETE}.
-                \item Se habilita la autenticación básica \texttt{HTTP}, lo cual es útil para acceder a la documentación Swagger.
-            \end{itemize}
-            \item \textbf{Gestión de sesiones:}
-            \begin{itemize}
-                \item El sistema utiliza una política de sesión sin estado \texttt{(STATELESS)}, lo que significa que no se mantiene una sesión en el servidor.
-            \end{itemize}
-            \item \textbf{Cross-Origin Resource Sharing \texttt{(CORS)}}
-            \begin{itemize}
-                \item Se configuran las reglas de \texttt{CORS} para permitir que el frontend interactúe con el backend desde orígenes específicos.
-            \end{itemize}
-        \end{itemize}
-        
-        \item \textbf{JSON Web Tokens \texttt{(JWT)}}
-        \noindent Se utiliza JWT para manejar la autenticación de los usuarios:
-        \begin{itemize}
-            \item \textbf{Generación y Validación de Tokens:}
-            \begin{itemize}
-                \item La clase \texttt{JwtUtil.java} se encarga de generar los tokens \texttt{JWT} cuando un usuario se autentica exitosamente. También valida los tokens y extrae información relevante como el nombre de usuario, la fecha de expiración. Puede extraer un reclamo en específico o todos los reclamos del token \texttt{JWT}.
-            \end{itemize}
-            \item \textbf{Filtro de solicitudes:}
-            \begin{itemize}
-                \item El filtro \texttt{JwtRequestFilter}.java intercepta cada solicitud \texttt{HTTP} para verificar si contiene un token \texttt{JWT} válido en el encabezado de autorización. Si el token es válido, se establece la autenticación en el contexto de seguridad.
-            \end{itemize}
-        \end{itemize}
-        
-        \item \textbf{Detalles del usuario y servicios}
-        \begin{itemize}
-            \item \textbf{CustomUserDetails.java:}
-            \begin{itemize}
-                \item Esta clase implementa la interfaz \texttt{UserDetails} de Spring Security y proporciona los detalles de autenticación y autorización del usuario, como el nombre de usuario y la contraseña.
-            \end{itemize}
-            \item \textbf{CustomUserDetailsService.java:}
-            \begin{itemize}
-                \item Este servicio se encarga de cargar los detalles del usuario desde la base de datos utilizando el repositorio \texttt{UsuarioRepository}. Si el usuario es encontrado, se retornan sus detalles encapsulados en un objeto \texttt{CustomUserDetails}.
-            \end{itemize}
-        \end{itemize}
-    \end{enumerate}
 \end{document}
